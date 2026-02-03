@@ -1,0 +1,6 @@
+{
+  "frontend/src/App.tsx": "Complete single-page board game application with team setup, horizontal/vertical responsive board layout showing 7 physics levels, manual pawn movement controls, winner detection, reset functionality, mini-game support, and a sidebar displaying all team positions.",
+  "frontend/src/index.css": "Global styles implementing a dark cosmic/space theme with OKLCH color system, starfield background image with overlay for readability, custom animations for smooth pawn transitions, and projector-friendly typography.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended cosmic color palette using OKLCH values (purples, blues, deep space tones), custom Inter font family, and enhanced border radius settings for the space theme.",
+  "frontend/src/main.tsx": "Simplified application entry point with React Query provider only (removed Internet Identity provider as authentication is not needed for this frontend-only game)."
+}

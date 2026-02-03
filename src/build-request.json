@@ -1,0 +1,237 @@
+{
+  "kind": "build_request",
+  "title": "Macro → Micro event organizer board game (team pawns, manual movement, winner + reset, optional mini-game)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create a single-page UI titled “Macro → Micro” that renders a board-game path with the fixed levels in this exact order: Universe → Galaxy Cluster → Milky Way → Solar System → Earth → Atoms → Quarks. Each level must be displayed as a clear node/box and visually connected as a path (horizontal on wide screens and able to stack/flow vertically on small screens).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Display a horizontal or vertical board with these fixed levels in order:\n\nUniverse → Galaxy Cluster → Milky Way → Solar System → Earth → Atoms → Quarks\n\nEach level should be shown clearly as boxes or nodes connected like a path."
+        ]
+      },
+      "acceptanceCriteria": [
+        "The board shows exactly 7 levels with the exact labels and order provided.",
+        "Nodes/boxes are connected visually (e.g., line/arrow/connector) and read as a path.",
+        "Layout is usable on laptop/projector widths and remains usable on mobile widths (can switch to vertical/stacked)."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement a “Team Setup” flow shown on initial load that lets the organizer specify number of teams (min 2, max 10) and enter team names, then starts the game by creating one pawn per team using physics-themed emojis (auto-assigned). All teams must start at the “Universe” level.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "At the start, allow the organizer to enter:\n\nNumber of teams (minimum 2, maximum 10)\n\nTeam names\n\nAfter entering this, automatically create a pawn for each team using physics-themed emojis (example: 🌌 ⚛️ 🪐 🔬).\n\nAll pawns start at “Universe”."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Team count input enforces 2–10 (cannot start outside this range).",
+        "Organizer can enter a name for each team before starting.",
+        "Starting the game creates one pawn per team with an emoji icon and places all pawns at Universe.",
+        "Team names persist through the session (including after Reset Game)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Render pawns on the board so that multiple teams can occupy the same level and are visually distinguishable (by emoji and/or name label). Highlight the current level for each team and animate pawn transitions smoothly when their position changes.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Bonus\n\nAnimate pawn movement smoothly\n\nHighlight current level"
+        ]
+      },
+      "acceptanceCriteria": [
+        "If multiple teams share a level, all their pawns are visible without overlapping unreadably.",
+        "When a pawn moves between levels, the change is animated (not an instant jump).",
+        "The currently occupied level(s) are visually highlighted in a clear, projector-friendly way."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Provide manual movement controls for the organizer: for each team, display “Move Forward” and “Move Backward” buttons that move that team’s pawn exactly one level along the path (forward toward Quarks, backward toward Universe). Prevent moving past the ends (cannot go before Universe or beyond Quarks).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "For each team, provide buttons:\n\n“Move Forward”\n\n“Move Backward”\n\nClicking these buttons should move that team’s pawn to the next or previous level on the board.\n\nOnly the organizer controls movement (no automatic logic)."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each team has its own Forward/Backward buttons visible during gameplay.",
+        "Forward moves +1 level; Backward moves -1 level.",
+        "Buttons do not allow positions outside the 0..6 range (Universe..Quarks)."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Show current position information in two places: (1) near each team’s controls (team name + current topic/level), and (2) in a sidebar that lists all teams and their current level.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Show:\n\nEach team’s current topic\n\nA small sidebar listing all teams and their positions"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each team row shows the team name and current level label.",
+        "A sidebar is present that lists all teams with their current level labels.",
+        "Sidebar updates immediately when any movement occurs."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement winner logic: when any team reaches “Quarks”, display a prominent message exactly in the format “🏆 Winner: Team X” (with the winning team’s name substituted) and disable all further movement controls until the game is reset.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "When any pawn reaches “Quarks”:\n\nDisplay a large message:\n\n“🏆 Winner: Team X”\n\nDisable further movement buttons."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Upon a team reaching Quarks, a large winner banner/message appears with the exact text prefix “🏆 Winner: ” and the correct team name.",
+        "After winner is declared, all Move Forward/Move Backward buttons are disabled for all teams.",
+        "Winner state persists until Reset Game is used."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add a “Reset Game” button that clears any winner state, returns all teams to “Universe”, and keeps the existing team names and team count (no need to re-enter setup unless the page is reloaded).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Include a “Reset Game” button that:\n\nClears winner\n\nSends all teams back to Universe\n\nKeeps team names."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Reset removes/hides the winner message.",
+        "After reset, every team’s position is Universe.",
+        "Team names remain unchanged after reset.",
+        "After reset, movement buttons are enabled again."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Add optional mini-game support via a “Mini Game Result” control: when triggered, the organizer can select a team and choose either “Win” (no movement) or “Lose” (automatically move the selected team backward exactly one level, respecting the Universe boundary).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Mini-Game Support (Optional but preferred)\nAdd a button:\n\n“Mini Game Result”\n\nWhen clicked, organizer can choose:\n\nWin → nothing happens\n\nLose → selected team automatically moves backward one level"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A “Mini Game Result” control is available during gameplay.",
+        "Organizer can pick a team and choose Win or Lose.",
+        "Win causes no position change.",
+        "Lose moves the selected team back exactly one level, without going before Universe.",
+        "If a winner is already declared, mini-game actions cannot change positions (controls disabled or blocked consistently with movement)."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Apply a clean, minimal, dark ‘space / cosmic’ visual theme suitable for laptop projector use, with large readable typography and large high-contrast buttons. Keep the styling consistent across setup, board, sidebar, and controls.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "UI Style\n\nClean and minimal\n\nDark space theme preferred\n\nPhysics / cosmic vibe\n\nLarge readable buttons\n\nDesigned for laptop projector use"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Overall UI uses a dark space/cosmic aesthetic with high contrast.",
+        "Buttons and key text are comfortably readable from a distance (projector-friendly sizing).",
+        "Theme is applied consistently across all screens/components."
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Keep the app frontend-only with no login system and no backend dependency; all game state is managed in the browser session.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "No login system\n\nNo backend required\n\nPure HTML/CSS/JavaScript (single page app)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "No login/auth UI or flows exist.",
+        "No backend canister calls are required for game functionality; gameplay works entirely in the browser session."
+      ]
+    },
+    {
+      "id": "REQ-11",
+      "text": "Add generated static image assets for the UI theme and reference them from the frontend (do not serve them via the backend): a subtle starfield background and a small ‘Macro → Micro’ event badge/logo mark.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-2"
+        ],
+        "quotes": [
+          "Dark space theme preferred\n\nPhysics / cosmic vibe"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The generated images are stored under frontend/public/assets/generated and are used by the UI (e.g., page background and header/hero mark).",
+        "UI remains readable over the background (appropriate overlay/contrast)."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not implement any login/authentication.",
+    "Do not add any required backend functionality for gameplay; state must work in-browser.",
+    "Do not modify files under frontend/src/components/ui or other immutable paths listed in SYSTEM_CONTEXT."
+  ],
+  "nonGoals": [
+    "Multi-organizer or player-facing participation features.",
+    "Real-time synchronization across devices/browsers.",
+    "Persistent storage across page reloads (unless added later as a separate request).",
+    "Additional game rules beyond manual movement, winner-at-Quarks, reset, and the optional mini-game result."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Subtle starfield background (macro-micro-starfield.dim_1920x1080.png)",
+      "Minimal cosmic badge/logo mark with text “Macro → Micro” (macro-micro-badge.dim_512x512.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [
+      "User-facing text must be in English."
+    ],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
