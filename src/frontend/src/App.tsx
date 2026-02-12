@@ -17,7 +17,10 @@ const LEVELS = [
   { id: 6, name: 'Quarks', emoji: '🔬' },
 ];
 
-const TEAM_EMOJIS = ['🌌', '⚛️', '🪐', '🔬', '🌟', '💫', '🚀', '🛸', '☄️', '🌙'];
+const TEAM_EMOJIS = ['🌌', '⚛️', '🪐', '🔬', '🌟', '💫', '🚀', '🛸', '☄️', '🌙', '🌏', '🔭', '🛰️', '🌑', '🌕', '💥', '🌈', '⭐', '🌊', '🔥'];
+
+const MIN_TEAMS = 2;
+const MAX_TEAMS = 20;
 
 interface Team {
   id: number;
@@ -38,8 +41,9 @@ export default function App() {
   const [selectedTeamForMiniGame, setSelectedTeamForMiniGame] = useState<string>('');
 
   const handleTeamCountChange = (count: number) => {
-    setTeamCount(count);
-    const newNames = Array.from({ length: count }, (_, i) => 
+    const clampedCount = Math.max(MIN_TEAMS, Math.min(MAX_TEAMS, count));
+    setTeamCount(clampedCount);
+    const newNames = Array.from({ length: clampedCount }, (_, i) => 
       teamNames[i] || `Team ${i + 1}`
     );
     setTeamNames(newNames);
@@ -129,22 +133,22 @@ export default function App() {
           <CardContent className="space-y-6">
             <div className="space-y-3">
               <Label htmlFor="team-count" className="text-lg">
-                Number of Teams (2-10)
+                Number of Teams (2-20)
               </Label>
               <Input
                 id="team-count"
                 type="number"
-                min={2}
-                max={10}
+                min={MIN_TEAMS}
+                max={MAX_TEAMS}
                 value={teamCount}
-                onChange={(e) => handleTeamCountChange(Math.max(2, Math.min(10, parseInt(e.target.value) || 2)))}
+                onChange={(e) => handleTeamCountChange(parseInt(e.target.value) || MIN_TEAMS)}
                 className="text-lg h-12"
               />
             </div>
 
             <div className="space-y-4">
               <Label className="text-lg">Team Names</Label>
-              <div className="grid gap-3">
+              <div className="grid gap-3 max-h-96 overflow-y-auto pr-2">
                 {teamNames.map((name, index) => (
                   <div key={index} className="flex items-center gap-3">
                     <span className="text-2xl">{TEAM_EMOJIS[index % TEAM_EMOJIS.length]}</span>
@@ -363,7 +367,7 @@ export default function App() {
               <CardHeader>
                 <CardTitle className="text-2xl">Team Positions</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
+              <CardContent className="space-y-3 max-h-[600px] overflow-y-auto">
                 {teams.map(team => (
                   <div
                     key={team.id}
@@ -387,9 +391,9 @@ export default function App() {
       {/* Footer */}
       <footer className="border-t border-border/50 backdrop-blur-sm bg-background/80 py-6 mt-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          © 2026. Built with ❤️ using{' '}
+          © {new Date().getFullYear()}. Built with ❤️ using{' '}
           <a 
-            href="https://caffeine.ai" 
+            href={`https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${encodeURIComponent(window.location.hostname)}`}
             target="_blank" 
             rel="noopener noreferrer"
             className="text-foreground hover:text-primary transition-colors font-semibold"

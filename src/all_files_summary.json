@@ -1,14 +1,14 @@
 {
-  "backend/main.mo": "Defines an empty Motoko actor, serving as a placeholder backend with no exposed methods or logic.",
-  "feature_evidence.json": "Structured report mapping implemented frontend features to files, components, test IDs, and confidence levels for requirements tracking.",
-  "frontend-file-summaries.txt": "Prewritten high-level summaries of key frontend files, describing app functionality, styling theme, Tailwind config, and entry point.",
-  "frontend/index.css": "Tailwind base stylesheet defining extensive OKLCH color variables for light/dark themes and core UI tokens like background, borders, and charts.",
-  "frontend/index.html": "HTML entry document that sets the page title and mounts the React application at the root element.",
-  "frontend/src/App.tsx": "Main single-page React game implementing team setup, board rendering across seven levels, pawn movement, win detection, reset, and mini-game handling.",
-  "frontend/src/hooks/useActor.ts": "React hook that creates and caches a backend actor via React Query, supporting anonymous or authenticated identities and refetching on identity change.",
-  "frontend/src/hooks/useInternetIdentity.ts": "Authentication context and hooks for Internet Identity, managing login state, identity persistence, and AuthClient configuration.",
-  "frontend/src/index.css": "Global Tailwind and custom CSS implementing a dark cosmic theme with starfield background, typography, and smooth pawn/animation utilities.",
-  "frontend/src/main.tsx": "React application bootstrap that mounts App with React Query and Internet Identity providers and imports global styles.",
-  "frontend/tailwind.config.js": "Tailwind CSS configuration enabling class-based dark mode, scanning frontend source files, and extending the theme with CSS-variable-driven colors, typography, layout containers, animations, and custom fonts. It also registers typography, container queries, and animation plugins.",
-  "project_state.json": "Machine-readable snapshot of the project’s current state and requirements, describing a single-page interactive “Macro → Micro” board-game-style web app for managing team progress in a live quiz. It lists schema metadata and detailed feature definitions for UI layout, team setup, pawn movement, status display, and winner logic."
+  "backend/main.mo": "Empty Motoko actor with no logic.",
+  "feature_evidence.json": "Feature evidence report referencing team setup UI update and related frontend file.",
+  "frontend-file-summaries.txt": "Prewritten summaries describing key frontend files including App.tsx and styling/config files.",
+  "frontend/index.css": "Tailwind base styles defining light/dark theme CSS variables and global styling.",
+  "frontend/index.html": "Basic HTML entry point mounting the React app via main.tsx.",
+  "frontend/src/App.tsx": "Main React game logic handling team setup (2–20 teams), movement across levels, mini‑games, and win detection.",
+  "frontend/src/hooks/useActor.ts": "React hook creating and managing an authenticated or anonymous backend actor with query invalidation.",
+  "frontend/src/hooks/useInternetIdentity.ts": "Internet Identity provider and hook managing authentication state, login, logout, and persisted identities.",
+  "frontend/src/index.css": "Extended Tailwind theme variables, cosmic background styling, and animation utilities.",
+  "frontend/src/main.tsx": "Application entry configuring React Query and Internet Identity provider before rendering App.",
+  "frontend/tailwind.config.js": "Tailwind config enabling OKLCH color variables, container queries, animations, and extended theme settings.",
+  "project_state.json": "Defines the project’s state, including existing features, a new feature request about configuring 2–20 teams, and general project metadata."
 }

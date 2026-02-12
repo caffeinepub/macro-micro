@@ -1,251 +1,36 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-03T19:48:18.531Z",
+  "generatedAt": "2026-02-12T07:28:47.448Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 11,
-    "implemented": 11,
+    "total": 1,
+    "implemented": 1,
     "items": [
       {
         "id": "REQ-1",
-        "summary": "Create a single-page UI titled “Macro → Micro” that renders a board-game path with the fixed levels in this exact order: Universe → Galaxy Cluster → Milky Way → Solar System → Earth → Atoms → Quarks. Each level must be displayed as a clear node/box and visually connected as a path (horizontal on wide screens and able to stack/flow vertically on small screens).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-10",
-        "summary": "Keep the app frontend-only with no login system and no backend dependency; all game state is managed in the browser session.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/main.tsx",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/main.tsx",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-11",
-        "summary": "Add generated static image assets for the UI theme and reference them from the frontend (do not serve them via the backend): a subtle starfield background and a small ‘Macro → Micro’ event badge/logo mark.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/public/assets/generated/macro-micro-starfield.dim_1920x1080.png",
-          "frontend/public/assets/generated/macro-micro-badge.dim_512x512.png",
-          "frontend/src/index.css",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/public/assets/generated/macro-micro-starfield.dim_1920x1080.png",
-          "frontend/public/assets/generated/macro-micro-badge.dim_512x512.png",
-          "frontend/src/index.css",
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-2",
-        "summary": "Implement a “Team Setup” flow shown on initial load that lets the organizer specify number of teams (min 2, max 10) and enter team names, then starts the game by creating one pawn per team using physics-themed emojis (auto-assigned). All teams must start at the “Universe” level.",
+        "summary": "Update the team setup UI to support configuring the number of teams from 2 to 20 (inclusive), including the displayed label text and all numeric input validation/clamping logic so users cannot set fewer than 2 or more than 20 teams.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/App.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-3",
-        "summary": "Render pawns on the board so that multiple teams can occupy the same level and are visually distinguishable (by emoji and/or name label). Highlight the current level for each team and animate pawn transitions smoothly when their position changes.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-4",
-        "summary": "Provide manual movement controls for the organizer: for each team, display “Move Forward” and “Move Backward” buttons that move that team’s pawn exactly one level along the path (forward toward Quarks, backward toward Universe). Prevent moving past the ends (cannot go before Universe or beyond Quarks).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-5",
-        "summary": "Show current position information in two places: (1) near each team’s controls (team name + current topic/level), and (2) in a sidebar that lists all teams and their current level.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-6",
-        "summary": "Implement winner logic: when any team reaches “Quarks”, display a prominent message exactly in the format “🏆 Winner: Team X” (with the winning team’s name substituted) and disable all further movement controls until the game is reset.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx",
-          "frontend/src/index.css"
-        ]
-      },
-      {
-        "id": "REQ-7",
-        "summary": "Add a “Reset Game” button that clears any winner state, returns all teams to “Universe”, and keeps the existing team names and team count (no need to re-enter setup unless the page is reloaded).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-8",
-        "summary": "Add optional mini-game support via a “Mini Game Result” control: when triggered, the organizer can select a team and choose either “Win” (no movement) or “Lose” (automatically move the selected team backward exactly one level, respecting the Universe boundary).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-9",
-        "summary": "Apply a clean, minimal, dark ‘space / cosmic’ visual theme suitable for laptop projector use, with large readable typography and large high-contrast buttons. Keep the styling consistent across setup, board, sidebar, and controls.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/index.css",
-          "frontend/src/App.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/index.css",
           "frontend/src/App.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
-    "backend/main.mo",
     "build-request.json",
-    "build-template/Dockerfile",
-    "build-template/LICENSE",
     "build-template/README.md",
-    "build-template/deploy.sh",
-    "build-template/icp.yaml",
-    "build-template/package.json",
-    "build-template/pnpm-lock.yaml",
-    "build-template/pnpm-workspace.yaml",
-    "build-template/scripts/prune-unused-images.js",
-    "build-template/scripts/resize-images.js",
-    "build-template/src/backend/canister.yaml",
-    "build-template/src/backend/system-idl/aaaaa-aa.did",
-    "build-template/src/frontend/canister.yaml",
-    "build-template/src/frontend/components.json",
-    "build-template/src/frontend/env.json",
-    "build-template/src/frontend/eslint-rules/no-bigint-in-query-keys.js",
-    "build-template/src/frontend/eslint-rules/require-internet-identity-provider.js",
-    "build-template/src/frontend/eslint.config.js",
-    "build-template/src/frontend/package.json",
-    "build-template/src/frontend/postcss.config.js",
-    "build-template/src/frontend/src/components/ui/accordion.tsx",
-    "build-template/src/frontend/src/components/ui/alert-dialog.tsx",
-    "build-template/src/frontend/src/components/ui/alert.tsx",
-    "build-template/src/frontend/src/components/ui/aspect-ratio.tsx",
-    "build-template/src/frontend/src/components/ui/avatar.tsx",
-    "build-template/src/frontend/src/components/ui/badge.tsx",
-    "build-template/src/frontend/src/components/ui/breadcrumb.tsx",
-    "build-template/src/frontend/src/components/ui/button.tsx",
-    "build-template/src/frontend/src/components/ui/calendar.tsx",
-    "build-template/src/frontend/src/components/ui/card.tsx",
-    "build-template/src/frontend/src/components/ui/carousel.tsx",
-    "build-template/src/frontend/src/components/ui/chart.tsx",
-    "build-template/src/frontend/src/components/ui/checkbox.tsx",
-    "build-template/src/frontend/src/components/ui/collapsible.tsx",
-    "build-template/src/frontend/src/components/ui/command.tsx",
-    "build-template/src/frontend/src/components/ui/context-menu.tsx",
-    "build-template/src/frontend/src/components/ui/dialog.tsx",
-    "build-template/src/frontend/src/components/ui/drawer.tsx",
-    "build-template/src/frontend/src/components/ui/dropdown-menu.tsx",
-    "build-template/src/frontend/src/components/ui/form.tsx",
-    "build-template/src/frontend/src/components/ui/hover-card.tsx",
-    "build-template/src/frontend/src/components/ui/input-otp.tsx",
-    "build-template/src/frontend/src/components/ui/input.tsx",
-    "build-template/src/frontend/src/components/ui/label.tsx",
-    "build-template/src/frontend/src/components/ui/menubar.tsx",
-    "build-template/src/frontend/src/components/ui/navigation-menu.tsx",
-    "build-template/src/frontend/src/components/ui/pagination.tsx",
-    "build-template/src/frontend/src/components/ui/popover.tsx",
-    "build-template/src/frontend/src/components/ui/progress.tsx",
-    "build-template/src/frontend/src/components/ui/radio-group.tsx",
-    "build-template/src/frontend/src/components/ui/resizable.tsx",
-    "build-template/src/frontend/src/components/ui/scroll-area.tsx",
-    "build-template/src/frontend/src/components/ui/select.tsx",
-    "build-template/src/frontend/src/components/ui/separator.tsx",
-    "build-template/src/frontend/src/components/ui/sheet.tsx",
-    "build-template/src/frontend/src/components/ui/sidebar.tsx",
-    "build-template/src/frontend/src/components/ui/skeleton.tsx",
-    "build-template/src/frontend/src/components/ui/slider.tsx",
-    "build-template/src/frontend/src/components/ui/sonner.tsx",
-    "build-template/src/frontend/src/components/ui/switch.tsx",
-    "build-template/src/frontend/src/components/ui/table.tsx",
-    "build-template/src/frontend/src/components/ui/tabs.tsx",
-    "build-template/src/frontend/src/components/ui/textarea.tsx",
-    "build-template/src/frontend/src/components/ui/toggle-group.tsx",
-    "build-template/src/frontend/src/components/ui/toggle.tsx",
-    "build-template/src/frontend/src/components/ui/tooltip.tsx",
-    "build-template/src/frontend/src/hooks/use-mobile.tsx",
-    "build-template/src/frontend/src/lib/utils.ts",
-    "build-template/src/frontend/tsconfig.json",
-    "build-template/src/frontend/vite.config.js",
-    "build-template/tsconfig.json",
     "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.css",
-    "frontend/index.html",
-    "frontend/public/assets/generated/macro-micro-badge.dim_512x512.png",
-    "frontend/public/assets/generated/macro-micro-starfield.dim_1920x1080.png",
     "frontend/src/App.tsx",
-    "frontend/src/backend.d.ts",
-    "frontend/src/backend.ts",
-    "frontend/src/config.ts",
-    "frontend/src/declarations/backend.did.d.ts",
-    "frontend/src/declarations/backend.did.js",
-    "frontend/src/hooks/useActor.ts",
-    "frontend/src/hooks/useInternetIdentity.ts",
-    "frontend/src/index.css",
-    "frontend/src/main.tsx",
-    "frontend/src/ui-summary.json",
-    "frontend/src/utils/StorageClient.ts",
-    "frontend/tailwind.config.js",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

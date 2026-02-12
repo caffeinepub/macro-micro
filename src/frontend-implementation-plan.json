@@ -1,228 +1,23 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Macro → Micro (frontend-only) event organizer board",
+  "title": "Allow configuring 2–20 teams in game setup",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Render a single-page “Macro → Micro” board path with 7 fixed connected levels and responsive horizontal/vertical layout.",
+      "summary": "Expand setup team-count control and related UI/state logic to support 2–20 teams with proper label, min/max attributes, and clamping while preserving existing team names.",
       "acceptanceCriteria": [
-        "The board shows exactly 7 levels with the exact labels and order provided.",
-        "Nodes/boxes are connected visually (e.g., line/arrow/connector) and read as a path.",
-        "Layout is usable on laptop/projector widths and remains usable on mobile widths (can switch to vertical/stacked)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the single-page UI shell titled “Macro → Micro” and render the board path with the exact 7 level labels in order (Universe → Galaxy Cluster → Milky Way → Solar System → Earth → Atoms → Quarks), including a responsive layout that switches from horizontal (wide) to vertical/stacked (small)."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Add global styling primitives used by the board: responsive board layout rules, node/connector styling, and baseline typography sizing suitable for projector use."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Implement initial Team Setup flow (2–10 teams) to capture names and start the game with auto-assigned physics-themed emoji pawns at Universe.",
-      "acceptanceCriteria": [
-        "Team count input enforces 2–10 (cannot start outside this range).",
-        "Organizer can enter a name for each team before starting.",
-        "Starting the game creates one pawn per team with an emoji icon and places all pawns at Universe.",
-        "Team names persist through the session (including after Reset Game)."
+        "On the setup screen, the label reads \"Number of Teams (2-20)\" (English).",
+        "The team count input enforces min=2 and max=20 in the UI control attributes.",
+        "Typing a value below 2 results in the app using 2; typing a value above 20 results in the app using 20 (i.e., onChange clamping logic uses 2..20).",
+        "When the team count changes, the app renders exactly that many Team Name inputs (2–20) and preserves already-entered names for indexes that still exist.",
+        "Starting a game after selecting up to 20 teams creates the same number of teams and renders their controls and positions without runtime errors."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Add an initial Team Setup view shown on first load with team count (min 2, max 10) and team name inputs; on Start, initialize in-memory game state with one pawn per team (auto-assigned physics-themed emoji) and set all positions to Universe while preserving names for the session."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Render distinguishable pawns per level, highlight occupied levels, and animate pawn transitions on movement.",
-      "acceptanceCriteria": [
-        "If multiple teams share a level, all their pawns are visible without overlapping unreadably.",
-        "When a pawn moves between levels, the change is animated (not an instant jump).",
-        "The currently occupied level(s) are visually highlighted in a clear, projector-friendly way."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Render team pawns within each level node (emoji and/or name label) with a layout that supports multiple pawns per node (e.g., wrap/stack) and apply clear highlight styling for occupied/current levels; add smooth movement animation behavior tied to position changes."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add/adjust CSS for pawn chips (readable spacing, wrap behavior for multiple pawns per node), occupied-level highlights, and transition/animation styles to ensure movement is visibly animated and projector-friendly."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add organizer manual movement controls per team (Forward/Backward) with boundary enforcement.",
-      "acceptanceCriteria": [
-        "Each team has its own Forward/Backward buttons visible during gameplay.",
-        "Forward moves +1 level; Backward moves -1 level.",
-        "Buttons do not allow positions outside the 0..6 range (Universe..Quarks)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add per-team organizer controls with “Move Forward” and “Move Backward” actions that change only that team’s position by exactly one step, and enforce boundaries so teams cannot go before Universe or beyond Quarks."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Show current position info near team controls and in a sidebar listing all teams and levels.",
-      "acceptanceCriteria": [
-        "Each team row shows the team name and current level label.",
-        "A sidebar is present that lists all teams with their current level labels.",
-        "Sidebar updates immediately when any movement occurs."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Display each team’s current level label alongside its movement controls, and add a sidebar that lists all teams and their current level; ensure both views update immediately on any movement."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add layout styling for main gameplay area + sidebar (readable spacing/typography and high-contrast separation) while staying responsive for smaller screens."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Declare a winner at Quarks with exact banner text and disable all movement until reset.",
-      "acceptanceCriteria": [
-        "Upon a team reaching Quarks, a large winner banner/message appears with the exact text prefix “🏆 Winner: ” and the correct team name.",
-        "After winner is declared, all Move Forward/Move Backward buttons are disabled for all teams.",
-        "Winner state persists until Reset Game is used."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add winner detection when any team reaches Quarks; render a prominent banner with exact format “🏆 Winner: Team X” and disable all movement controls for all teams while winner state is present."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Add projector-friendly winner banner styling (large, high-contrast) that remains readable over the dark theme."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add Reset Game button to clear winner and return all teams to Universe while keeping team names/count.",
-      "acceptanceCriteria": [
-        "Reset removes/hides the winner message.",
-        "After reset, every team’s position is Universe.",
-        "Team names remain unchanged after reset.",
-        "After reset, movement buttons are enabled again."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a “Reset Game” control that clears winner state, resets all team positions to Universe, and preserves team names and team count without returning to Team Setup (unless the page is reloaded)."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Add optional Mini Game Result control to apply Win (no-op) or Lose (move back 1) to a selected team, disabled after winner.",
-      "acceptanceCriteria": [
-        "A “Mini Game Result” control is available during gameplay.",
-        "Organizer can pick a team and choose Win or Lose.",
-        "Win causes no position change.",
-        "Lose moves the selected team back exactly one level, without going before Universe.",
-        "If a winner is already declared, mini-game actions cannot change positions (controls disabled or blocked consistently with movement)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Add a “Mini Game Result” control available during gameplay that lets the organizer select a team and choose Win (no movement) or Lose (move back exactly one level with Universe boundary), and block/disable this control when a winner has been declared."
-        }
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "summary": "Apply a clean minimal dark space/cosmic theme with large readable typography and high-contrast buttons across all UI sections.",
-      "acceptanceCriteria": [
-        "Overall UI uses a dark space/cosmic aesthetic with high contrast.",
-        "Buttons and key text are comfortably readable from a distance (projector-friendly sizing).",
-        "Theme is applied consistently across all screens/components."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Implement the global dark space/cosmic theme (colors, typography scale, button sizing defaults, panels) ensuring consistent styling across setup, board, sidebar, and controls."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Apply consistent themed layout structure (header/title area, main board, sidebar, controls) using the global dark theme styles and ensuring key text/buttons are large and high-contrast for projector use."
-        }
-      ]
-    },
-    {
-      "id": "REQ-10",
-      "summary": "Ensure the app is frontend-only with no login/auth and no backend dependency; manage all state in browser session.",
-      "acceptanceCriteria": [
-        "No login/auth UI or flows exist.",
-        "No backend canister calls are required for game functionality; gameplay works entirely in the browser session."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/main.tsx",
-          "operation": "modify",
-          "description": "Remove/disable any authentication provider wiring so the app runs without login/auth flows and does not require identity to function; keep the app bootstrapping minimal for a frontend-only single-page experience."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Ensure all gameplay state (teams, positions, winner) is held in in-memory React state for the current browser session, with no backend calls/imports required for gameplay."
-        }
-      ]
-    },
-    {
-      "id": "REQ-11",
-      "summary": "Add generated starfield background and Macro → Micro badge/logo as static frontend assets and reference them in the UI.",
-      "acceptanceCriteria": [
-        "The generated images are stored under frontend/public/assets/generated and are used by the UI (e.g., page background and header/hero mark).",
-        "UI remains readable over the background (appropriate overlay/contrast)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/public/assets/generated/macro-micro-starfield.dim_1920x1080.png",
-          "operation": "create",
-          "description": "Add the generated subtle starfield background image asset as a static file at this exact path for frontend use (no backend serving/storage)."
-        },
-        {
-          "path": "frontend/public/assets/generated/macro-micro-badge.dim_512x512.png",
-          "operation": "create",
-          "description": "Add the generated ‘Macro → Micro’ badge/logo mark image asset as a static file at this exact path for frontend use (no backend serving/storage)."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "modify",
-          "description": "Reference frontend/public/assets/generated/macro-micro-starfield.dim_1920x1080.png as the app background (with a readability overlay/contrast treatment) to support the cosmic theme."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Reference frontend/public/assets/generated/macro-micro-badge.dim_512x512.png in the UI (e.g., header/title area) and ensure layout/contrast keep text readable over the starfield background."
+          "description": "Update the setup UI to show the label text \"Number of Teams (2-20)\" and adjust the team count input to enforce min=2 and max=20. Implement/centralize 2..20 clamping logic (e.g., constants + helper) so both UI attributes and onChange handling consistently constrain values, and ensure the teamNames array is resized to match the clamped team count while preserving existing names for still-valid indexes. Continue using existing shadcn-ui Input/Label components (provided by the shadcn-ui component set) for numeric input and labeling; verify the component's usage instructions before implementing."
         }
       ]
     }
